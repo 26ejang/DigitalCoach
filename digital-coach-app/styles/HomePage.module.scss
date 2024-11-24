@@ -1,0 +1,115 @@
+// Colors
+$blue: #002f6c;
+$light_blue: #f0f4f8;
+$orange: #f47c00;
+$light_orange: #f9a24e;
+$white: #ffffff;
+$gray: #333;
+$light_gray: #555;
+
+.homePage {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    background-color: $white;
+    color: $gray;
+}
+
+.hero {
+    padding: 60px 20px;
+    background-color: $blue;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.heroTitle {
+    font-size: 4rem;
+    color: $white;
+    margin-bottom: 15px;
+}
+
+.heroDescription {
+    font-size: 1.2rem;
+    color: $white;
+    margin-bottom: 30px;
+}
+
+.features {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.featuresTitle {
+    font-size: 2.5rem;
+    color: $blue;
+    margin-bottom: 40px;
+}
+
+.featureList {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.featureItem {
+    width: 280px;
+    background-color: $white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+    }
+
+    h3 {
+        color: $blue;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: $light_gray;
+        font-size: 1rem;
+    }
+}
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: $blue;
+    color: $white;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.signup h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.signupButton {
+    display: inline-block;
+    font-size: 1.1rem;
+    background-color: $orange;
+    color: $white;
+    padding: 15px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, trnasform 0.3s ease;
+
+    &:hover {
+        background-color: $light_orange;
+        transform: scale(1.05);
+    }
+}
+
+// Maybe add some designs for different resolutions
