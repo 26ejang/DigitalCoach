@@ -1,23 +1,85 @@
-@import "@App/styles/colors.scss";
-
-.thing{
-    font-family: Montserrat;
-    font-style: italic;
-    font-weight: 250;
-    font-size: 24px;
-}
-
-.videoBox{
+  .videoBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .videoBox video {
+    width: 49%;
+    height: auto;
+  }
+  
+  .buttonBox {
     display: flex;
     justify-content: center;
-    video {
-        width: 50%;
-        margin: 5px;
-    }
-}
+    gap: 10px;
+  }
 
-.buttonBox{
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
+  .score {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .recordButtons {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .recordButton,
+  .saveButton,
+  .resultButton,
+  .resetButton {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+  }
+  
+  .recordButton {
+    background-color: #4CAF50;
+    color: #fff;
+    border: 1px solid #45a049;
+  }
+  
+  .recordButton:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+  
+  .recordButton:active {
+    background-color: #388e3c;
+    transform: translateY(0);
+  }
+  
+  .saveButton {
+    background-color: #2196F3;
+    color: #fff;
+    border: 1px solid #1e88e5;
+  }
+  
+  .saveButton:hover {
+    background-color: #1e88e5;
+    transform: translateY(-2px);
+  }
+  
+  .saveButton:active {
+    background-color: #1976D2;
+    transform: translateY(0);
+  }
+  
+  .resultButton {
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #ffb300;
+  }
+  
+  .resultButton:hover {
+    background-color: #ffb300;
+    transform: translateY(-2px);
+  }
+  
+  .resultButton:active {
+    background-color: #ff8f00;
+    transform: translateY(0);
+  }
