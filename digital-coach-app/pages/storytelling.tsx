@@ -32,7 +32,7 @@ export default function StorytellingPage() {
   const [bigFive, setBigFive] = useState<any>({});
 
   const allSelectedItems = [...selectedQuestions, ...selectedScenarios];
-  const canAddItem = allSelectedItems.length < 10; //Question and Scenatio limit
+  const canAddItem = allSelectedItems.length < 10;
 
   const sampleQuestions = [
     "What is your biggest achievement?",
@@ -273,90 +273,87 @@ export default function StorytellingPage() {
                 <video ref={videoRef} controls autoPlay />
             </div>
             <div className={styles.buttonBox}>
-                <button
-                    onClick={() => {
-                    setIsLocked(true);
-                    setWasRecording(true);
-                    startRecording();
-                    }}>
-                    Start Recording
-                </button>
-                <button
-                    onClick={() => {
-                    setIsLocked(false);
-                    if (wasRecording) {
-                        setQuestions([]);
-                        setShowQuestions(false);
-                        setShowScenarios(false);
-                        setWasRecording(false);
-                    }
-                    stopRecording();
-                    }}>
-                    Stop Recording
-                </button>
+                <button className={styles.recordButton} onClick={() => {
+                  setIsLocked(true);
+                  setWasRecording(true);
+                  startRecording();
+                }}>Start Recording</button>
+                <button className={styles.recordButton} onClick={() => {
+                  setIsLocked(false);
+                  if(wasRecording) {
+                    setQuestions([]);
+                    setShowQuestions(false);
+                    setShowScenarios(false);
+                    setWasRecording(false);
+                  }
+                  stopRecording();
+                }}>Stop Recording</button>
                 {mediaBlobUrl && (
-                    <button onClick={saveRecording}>Save Recording</button>
+                  <button className={styles.saveButton} onClick={saveRecording}>Save Recording</button>
                 )}
-                <button onClick={getResults}>Get Results</button>
-                <p>Most Recent Score: </p>
-                {aggregateScore !== 0 && (
-                    <CircularProgressWithLabel value={aggregateScore} />
-                )}
+                <button className={styles.resultButton} onClick={getResults}>Get Results</button>
             </div>
+            <p className={styles.score}>Most Recent Score: </p>
+            {aggregateScore !== 0 && (<CircularProgressWithLabel value={aggregateScore} />)}
         </div>
         {/* Selected Item Slideshow */}
         {allSelectedItems.length > 0 ? (
-          <div>
-            <h3>
-              {allSelectedItems[currentIndex]}
-            </h3>
-            <button onClick={() => cycleItem('prev')}>Previous</button>
-            <button onClick={() => cycleItem('next')}>Next</button>
+          <div className={styles.itemSlideshow}>
+            <h3>{allSelectedItems[currentIndex]}</h3>
+            <div className={styles.buttonContainer}>
+              <button className={styles.prevButton} onClick={() => cycleItem('prev')}>Previous</button>
+              <button className={styles.nextButton} onClick={() => cycleItem('next')}>Next</button>
+            </div>
           </div>
         ) : (
           <p>No items selected yet</p>
         )}
 
         {/* Reset Button */}
-        <button onClick={resetItems}>Reset Selections</button>
+        <div className={styles.buttonBox}>
+          <button className={styles.resetButton} onClick={resetItems}>Reset Selections</button>
+        </div>
 
-        {/* Browse Questions */}
-        <button onClick={toggleQuestionsVisibility}>
-          {showQuestions ? 'Hide Questions' : 'Browse Questions'}
-        </button>
-        {showQuestions && (
-          <div>
-            {sampleQuestions.map((question, index) => (
-              <div key={index}>
-                <button
-                  disabled={selectedQuestions.includes(question)}
-                  onClick={() => selectQuestion(question)}
-                >
-                  {question}
-                </button>
+        <div className={styles.browseSectionContainer}>
+          {/* Browse Questions */}
+          <div className={styles.browseSection}>
+            <button className={styles.browseButton} onClick={toggleQuestionsVisibility}>
+              {showQuestions ? 'Hide Questions' : 'Browse Questions'}
+            </button>
+            {showQuestions && (
+              <div className={styles.questionList}>
+                {sampleQuestions.map((question, index) => (
+                  <div key={index}>
+                    <button
+                      className={styles.questionButton} 
+                      disabled={selectedQuestions.includes(question)}
+                      onClick={() => selectQuestion(question)}>{question}</button>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
 
-        {/* Browse Scenarios */}
-        <button onClick={toggleScenariosVisibility}>
-          {showScenarios ? 'Hide Scenarios' : 'Browse Scenarios'}
-        </button>
-        {showScenarios && (
-          <div>
-            {sampleScenarios.map((scenario, index) => (
-              <div key={index}>
-                <button
-                  disabled={selectedScenarios.includes(scenario)}
-                  onClick={() => selectScenario(scenario)}
-                >
-                  {scenario}
-                </button>
+          {/* Browse Scenarios */}
+          <div className={styles.browseSection}>
+            <button className={styles.browseButton} onClick={toggleScenariosVisibility}>
+              {showScenarios ? 'Hide Scenarios' : 'Browse Scenarios'}
+            </button>
+            {showScenarios && (
+              <div className={styles.scenarioList}>
+                {sampleScenarios.map((scenario, index) => (
+                  <div key={index}>
+                    <button
+                      className={styles.questionButton}
+                      disabled={selectedScenarios.includes(scenario)}
+                      onClick={() => selectScenario(scenario)}>{scenario}</button>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
+        </div>
+        
 
         {feedback.length !== 0 && Object.keys(bigFive).length !== 0 && (
         <div>
