@@ -182,16 +182,12 @@ export default function VideoPage() {
           <video ref={videoRef} controls autoPlay />
         </div>
         <div className={styles.buttonBox}>
-          <button
-            onClick={() => {
+          <button className={styles.recordButton} onClick={() => {
               setIsLocked(true);
               setWasRecording(true);
               startRecording();
-            }}>
-            Start Recording
-          </button>
-          <button
-            onClick={() => {
+            }}>Start Recording</button>
+          <button className={styles.recordButton} onClick={() => {
               setIsLocked(false);
               if (wasRecording) {
                 setQuestions([]);
@@ -199,18 +195,16 @@ export default function VideoPage() {
                 setWasRecording(false);
               }
               stopRecording();
-            }}>
-            Stop Recording
-          </button>
+            }}>Stop Recording</button>
           {mediaBlobUrl && (
-            <button onClick={saveRecording}>Save Recording</button>
+            <button className={styles.saveButton} onClick={saveRecording}>Save Recording</button>
           )}
-          <button onClick={getResults}>Get Results</button>
-          <p>Most Recent Score: </p>
-          {aggregateScore !== 0 && (
-            <CircularProgressWithLabel value={aggregateScore} />
-          )}
+          <button className={styles.resultButton} onClick={getResults}>Get Results</button>
         </div>
+        <p className={styles.score}>Most Recent Score: </p>
+        {aggregateScore !== 0 && (
+          <CircularProgressWithLabel value={aggregateScore} />
+        )}
       </div>
       <SelectQuestionSetCard
         isLocked={isLocked}
