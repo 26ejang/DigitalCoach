@@ -14,11 +14,17 @@ export default function NavBar() {
           <a className={style.logo_text}>Digital Coach</a>
         </Link>
         <div className={style.links}>
+          <Link href='/home'>
+            <a className={style.linksText}>Home</a>
+          </Link>
           <Link href='/'>
             <a className={style.linksText}>Dashboard</a>
           </Link>
           <Link href='/video'>
             <a className={style.linksText}>Record a Mock Interview</a>
+          </Link>
+          <Link href='/storytelling'>
+            <a className={style.linksText}>Practice Storytelling</a>
           </Link>
           {/* <Link href='/start'>
             <a className={style.linksText}>Start an Interview</a>
