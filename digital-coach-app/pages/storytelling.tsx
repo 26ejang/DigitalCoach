@@ -31,6 +31,9 @@ export default function StorytellingPage() {
   const [feedback, setFeedback] = useState<any>([]);
   const [bigFive, setBigFive] = useState<any>({});
 
+  const [prevFeedback, setPrevFeedback] = useState<any>([]);
+  const [prevBigFive, setPrevBigFive] = useState<any>({});
+
   const allSelectedItems = [...selectedQuestions, ...selectedScenarios];
   const canAddItem = allSelectedItems.length < 10;
 
@@ -139,6 +142,8 @@ export default function StorytellingPage() {
       if (response.data.result) {
         setAggregateScore(response.data.result.evaluation.aggregateScore);
         setBigFive(response.data.result.evaluation.bigFive);
+        setPrevFeedback(feedback);
+        setPrevBigFive(bigFive);
 		InterviewService.create(currentUser!.id, { title: 'Test'} as IBaseInterview, response.data.result.evaluation);
         // Now need to give feedback based on Big Five Score
         let userFeedback = [];
@@ -243,6 +248,12 @@ export default function StorytellingPage() {
     } catch (e) {
     }
   };
+
+  const showPreviousResults = () => {
+    setFeedback(prevFeedback);
+    setBigFive(prevBigFive);
+  }
+
   useEffect(() => {
     if (videoRef.current && previewStream) {
       videoRef.current.srcObject = previewStream;
@@ -263,20 +274,27 @@ export default function StorytellingPage() {
                   setWasRecording(true);
                   startRecording();
                 }}>Start Recording</button>
-                <button className={styles.recordButton} onClick={() => {
-                  setIsLocked(false);
-                  if(wasRecording) {
-                    setQuestions([]);
-                    setShowQuestions(false);
-                    setShowScenarios(false);
-                    setWasRecording(false);
-                  }
-                  stopRecording();
+                <button 
+                  className={styles.recordButton}
+                  onClick={() => {
+                    setIsLocked(false);
+                    if(wasRecording) {
+                      setQuestions([]);
+                      setShowQuestions(false);
+                      setShowScenarios(false);
+                      setWasRecording(false);
+                    }
+                    stopRecording();
                 }}>Stop Recording</button>
                 {mediaBlobUrl && (
                   <button className={styles.saveButton} onClick={saveRecording}>Save Recording</button>
                 )}
                 <button className={styles.resultButton} onClick={getResults}>Get Results</button>
+
+                {/* Previou Results */}
+                {prevFeedback.length > 0 && prevBigFive.length && (
+                  <button className={styles.resultButton} onClick={showPreviousResults}>Show Previous Results</button>
+                )}
             </div>
             <p className={styles.score}>Most Recent Score: </p>
             {aggregateScore !== 0 && (<CircularProgressWithLabel value={aggregateScore} />)}
