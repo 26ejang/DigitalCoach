@@ -27,6 +27,9 @@ export default function VideoPage() {
   const [feedback, setFeedback] = useState<any>([]);
   const [bigFive, setBigFive] = useState<any>({});
 
+  const [prevFeedback, setPrevFeedback] = useState<any>([]);
+  const [prevBigFive, setPrevBigFive] = useState<any>({});
+
   const saveRecording = async () => {
     const getFile = async () => {
       const url = mediaBlobUrl ? mediaBlobUrl : '';
@@ -63,6 +66,8 @@ export default function VideoPage() {
       if (response.data.result) {
         setAggregateScore(response.data.result.evaluation.aggregateScore);
         setBigFive(response.data.result.evaluation.bigFive);
+        setPrevFeedback(feedback);
+        setPrevBigFive(bigFive);
 		InterviewService.create(currentUser!.id, { title: 'Test'} as IBaseInterview, response.data.result.evaluation);
         // Now need to give feedback based on Big Five Score
         let userFeedback = [];
@@ -167,6 +172,12 @@ export default function VideoPage() {
     } catch (e) {
     }
   };
+
+  const showPreviousResults = () => {
+    setFeedback(prevFeedback);
+    setBigFive(prevBigFive);
+  }
+
   useEffect(() => {
     if (videoRef.current && previewStream) {
       videoRef.current.srcObject = previewStream;
@@ -200,6 +211,11 @@ export default function VideoPage() {
             <button className={styles.saveButton} onClick={saveRecording}>Save Recording</button>
           )}
           <button className={styles.resultButton} onClick={getResults}>Get Results</button>
+
+          {/* Previou Results */}
+          {prevFeedback.length > 0 && prevBigFive.length && (
+            <button className={styles.resultButton} onClick={showPreviousResults}>Show Previous Results</button>
+          )}
         </div>
         <p className={styles.score}>Most Recent Score: </p>
         {aggregateScore !== 0 && (
